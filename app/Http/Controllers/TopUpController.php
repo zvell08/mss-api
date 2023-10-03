@@ -14,7 +14,6 @@ class TopUpController extends Controller
     public function store(Request $request)
     {
         try {
-            // Validasi input
             $validator = Validator::make($request->all(), [
                 'user_id' => 'required|exists:users,id',
                 'student_id' => 'required|exists:students,id',
@@ -25,18 +24,17 @@ class TopUpController extends Controller
                 return response()->json(['error' => $validator->errors()], 422);
             }
 
-            // Membuat top-up baru
             $topUp = TopUp::create([
                 'user_id' => $request->input('user_id'),
                 'student_id' => $request->input('student_id'),
                 'nominal' => $request->input('nominal'),
             ]);
 
-            // Mengupdate saldo dompet siswa
+
             $student = Student::find($request->input('student_id'));
 
             if (!$student) {
-                throw new \Exception('Siswa tidak ditemukan.'); // Menangani jika siswa tidak ditemukan
+                throw new \Exception('Siswa tidak ditemukan.');
             }
 
             $student->wallet->amount += $request->input('nominal');
