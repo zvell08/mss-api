@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TopUpController;
+use App\Http\Controllers\TransactionBarangController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //user
 Route::post('login', [UserController::class, 'login']);
 Route::post('store/topup', [TopUpController::class, 'store']);
+
+
+Route::post('store/purchase', [TransactionBarangController::class, 'purchase']);
