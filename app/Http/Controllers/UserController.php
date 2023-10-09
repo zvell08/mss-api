@@ -17,7 +17,7 @@ class UserController extends Controller
                 throw new \Exception('Invalid login credentials');
             }
 
-            $user = Auth::user()->load('parents:id,nama_ayah');
+            $user = Auth::user();
             $token = $user->createToken('MyApp')->plainTextToken;
 
             return response()->json(['token' => $token, 'user' => $user]);
